@@ -3,9 +3,15 @@ import { ConcertService } from './concert.service';
 import { ConcertCreateDto } from './dto/ConcertCreate.dto';
 import { Concert } from './schema/concert.schema';
 
-@Controller('concert')
+@Controller('concerts')
 export class ConcertController {
     constructor(private readonly concertService: ConcertService) {}
+
+    @Get()
+    async getAll()
+    {
+        return this.concertService.getAll();
+    }
 
     @Post()
     createConcert(@Body() concertCreateDto: ConcertCreateDto)

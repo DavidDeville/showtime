@@ -1,0 +1,13 @@
+.concerts {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    height: 400px;
+    align-content:center;
+  }
+
+.concertCard
+{
+    width: 300px;
+    margin: 50px;
+}

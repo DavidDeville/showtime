@@ -13,4 +13,8 @@ export class ConcertService
     {
         return await this.concertRepository.create(concertCreateDto);
     }
+
+    async getAll(): Promise<Concert[]> {
+        return await this.concertRepository.findAll();
+    }
 }

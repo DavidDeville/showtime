@@ -15,4 +15,8 @@ export class ConcertRepository
         let newConcert = new this.concertModel(concertCreateDto);
         return newConcert.save();
     }
+
+    async findAll(): Promise<Concert[]> {
+        return await this.concertModel.find();
+    }
 }
