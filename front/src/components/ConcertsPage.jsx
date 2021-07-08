@@ -1,9 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import AuthContext from "../contexts/AuthContext";
 import api from "../services/authAPI";
 import "../style/style.css";
 
 const ConcertsPage = () => {
   const [concerts, setConcerts] = useState([]);
+
+  const {isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+
+  const {isAdmin, setIsAdmin } = useContext(AuthContext);
 
   /**
    * API call to fetch the concerts
@@ -16,6 +21,21 @@ const ConcertsPage = () => {
       console.log(error);
     }
   };
+
+  /**
+   * Handle concert delete feature
+   */
+  const handleDelete = async (id) => {
+    const originalConcerts = [...concerts];
+    setConcerts(concerts.filter((concert) => concert._id !== id));
+    console.log(id);
+    try {
+      const data = await api.deleter("concerts/" +id)
+    } catch (error) {
+      console.log(error);
+      setConcerts(originalConcerts);
+    }
+  }
 
   /**
    * Gets all concerts on page loading
@@ -48,6 +68,12 @@ const ConcertsPage = () => {
                     Lieu : {concert.place}
                     <br />
                     Date : {concert.date}
+                    <br />
+                    {isAdmin ? 
+                    <div>
+                      <button type="button" class="btn btn-outline-danger" onClick={() => handleDelete(concert._id)}>Delete</button>
+                    </div> : <></>}
+                    
                   </p>
                 </div>
               </div>

@@ -17,4 +17,10 @@ export class ConcertService
     async getAll(): Promise<Concert[]> {
         return await this.concertRepository.findAll();
     }
+
+    async delete(id: string): Promise<boolean>
+    {
+        let x = await this.concertRepository.delete(id);
+        return x;
+    }
 }

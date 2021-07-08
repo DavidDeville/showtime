@@ -44,6 +44,20 @@ import jwtDecode from 'jwt-decode';
 }
 
 /**
+ * Deletes a ressource based on its id
+ * 
+ * @param {string} path - the API URL 
+ * @param {*} id - the id of the element to delete
+ */
+ const deleter = (path, id) => {
+    const baseApiUrl = 'http://localhost:3001';
+
+    return axios.delete(`${baseApiUrl}/${path}`,
+        id
+    );
+}
+
+/**
  * Sets the user's token into axios default headers
  * 
  * @param {string} token - the token provided to the logged user
@@ -98,6 +112,7 @@ import jwtDecode from 'jwt-decode';
 const api = {
     get,
     post,
+    deleter,
     setToken,
     isAuthenticated,
     setup,
