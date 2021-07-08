@@ -8,6 +8,7 @@ import LoginPage from "./components/LoginPage";
 import AuthContext from "./contexts/AuthContext";
 import api from "./services/authAPI";
 import { useState } from "react";
+import AdminPage from "./components/AdminPage";
 
 api.setup();
 
@@ -24,8 +25,8 @@ const App = () => {
   console.log(isAuthenticated);
   const contextValue = {
     isAuthenticated,
-    setIsAuthenticated
-  }
+    setIsAuthenticated,
+  };
 
   return (
     <div className="App">
@@ -40,6 +41,12 @@ const App = () => {
               render={(props) => (
                 <ConcertsPage isAuthenticated={isAuthenticated} {...props} />
               )}
+            />
+            <PrivateRoute
+              exact
+              path="/admin"
+              isAuthenticated={isAuthenticated}
+              component={AdminPage}
             />
           </Switch>
         </HashRouter>

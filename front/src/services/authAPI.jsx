@@ -71,6 +71,23 @@ import jwtDecode from 'jwt-decode';
 }
 
 /**
+ * Checks if a token exist and if the expiration date is still valid
+ * Similar to setup function but used when necessary, not on boot
+ */
+ const isAdmin = () => {
+    const token = window.localStorage.getItem('access_token');
+
+    if(token) {
+        const {role} = jwtDecode(token);
+        if(role === "admin") {
+            return true;
+        }
+        return false;
+    }
+    return false;
+}
+
+/**
  * Removes the token from local storage and headers on logout
  */
  const logout = () => {
@@ -84,7 +101,8 @@ const api = {
     setToken,
     isAuthenticated,
     setup,
-    logout
+    logout,
+    isAdmin
 }
 
 export default api;

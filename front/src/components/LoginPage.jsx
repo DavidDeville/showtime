@@ -7,6 +7,7 @@ const LoginPage = ({history}) => {
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
+    role: ""
   });
 
   const [error, setError] = useState("");
