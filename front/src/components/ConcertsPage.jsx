@@ -11,7 +11,6 @@ const ConcertsPage = () => {
   const fetchConcerts = async () => {
     try {
       const data = await api.get("concerts");
-      //console.log(data.data);
       setConcerts(data.data);
     } catch (error) {
       console.log(error);
@@ -38,7 +37,7 @@ const ConcertsPage = () => {
       <div className="concerts">
         {concerts.map((concert) => {
           return (
-            <div>
+            <div key={concert._id}>
               <div
                 className="card border-success mb-2 concertCard"
                 style={{ maxWidth: 20 + "rem" }}

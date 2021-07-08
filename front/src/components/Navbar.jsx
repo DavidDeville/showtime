@@ -1,7 +1,19 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useContext } from "react";
+import { NavLink, useHistory } from "react-router-dom";
+import AuthContext from "../contexts/AuthContext";
+import api from "../services/authAPI";
 
 const Navbar = () => {
+  let history = useHistory();
+
+  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    api.logout();
+    setIsAuthenticated(false);
+    history.push("/login");
+  };
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -33,22 +45,40 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <ul className="navbar-nav">
-          <li className="nav-item active">
-            <NavLink to="/login">
-              <button type="button" className="btn btn-outline-success">
-                Login
-              </button>
-            </NavLink>
-          </li>
-        </ul>
-        <ul className="navbar-nav">
-          <li className="nav-item active">
-            <button type="button" className="btn btn-outline-danger">
-              Register
-            </button>
-          </li>
-        </ul>
+        {!isAuthenticated ? (
+          <>
+            <ul className="navbar-nav">
+              <li className="nav-item active">
+                <NavLink to="/login">
+                  <button type="button" className="btn btn-outline-success">
+                    Login
+                  </button>
+                </NavLink>
+              </li>
+            </ul>
+            <ul className="navbar-nav">
+              <li className="nav-item active">
+                <button type="button" className="btn btn-outline-danger">
+                  Register
+                </button>
+              </li>
+            </ul>
+          </>
+        ) : (
+          <>
+            <ul className="navbar-nav">
+              <li className="nav-item active">
+                <button
+                  type="button"
+                  className="btn btn-outline-danger"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </li>
+            </ul>
+          </>
+        )}
       </nav>
     </div>
   );

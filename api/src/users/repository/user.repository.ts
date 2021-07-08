@@ -19,8 +19,8 @@ export class UserRepository {
         return await this.userModel.find();
     }
 
-    async findOne(username: string): Promise<User>
+    async findOne(email: string): Promise<User>
     {
-        return await this.userModel.findOne({username: username});
+        return await this.userModel.findOne({email: email});
     }
 }

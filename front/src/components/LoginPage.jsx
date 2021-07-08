@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Field from '../components/forms/Field';
+import AuthContext from "../contexts/AuthContext";
 import api from "../services/authAPI";
 
-const LoginPage = () => {
+const LoginPage = ({history}) => {
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -10,6 +11,12 @@ const LoginPage = () => {
 
   const [error, setError] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  const {isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+
+  if(isAuthenticated) {
+    history.replace('/concerts');
+  }
 
   /**
    * Handle the API call to authenticate the user
@@ -23,7 +30,16 @@ const LoginPage = () => {
     event.preventDefault();
     setError(false);
     try {
-      const token = api.post("auth/login", credentials);
+      const token = await api.post("auth/login", credentials)
+      .then((res) => res.data.access_token);
+      
+      console.log(token);
+      setError('');
+      setIsAuthenticated(true);
+      window.localStorage.setItem('access_token', token);
+      api.setToken(token);
+      history.replace('/concerts');
+
     } catch (error) {
       console.log(error);
     }

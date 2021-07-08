@@ -16,7 +16,6 @@ export class ConcertController {
     @Post()
     createConcert(@Body() concertCreateDto: ConcertCreateDto)
     {
-        console.log(concertCreateDto);
         return this.concertService.create(concertCreateDto);
     }
 }
