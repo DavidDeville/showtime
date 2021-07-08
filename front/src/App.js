@@ -9,6 +9,7 @@ import AuthContext from "./contexts/AuthContext";
 import api from "./services/authAPI";
 import { useState } from "react";
 import AdminPage from "./components/AdminPage";
+import CreateConcertPage from './components/CreateConcertPage';
 
 api.setup();
 
@@ -22,10 +23,16 @@ const PrivateRoute = ({ path, isAuthenticated, component }) =>
 const App = () => {
   // Check if user is logged or not
   const [isAuthenticated, setIsAuthenticated] = useState(api.isAuthenticated());
-  console.log(isAuthenticated);
+
+  // Check if user is an admin or not
+  const [isAdmin, setIsAdmin] = useState(api.isAdmin());
+  
+
   const contextValue = {
     isAuthenticated,
     setIsAuthenticated,
+    isAdmin,
+    setIsAdmin
   };
 
   return (
@@ -46,7 +53,15 @@ const App = () => {
               exact
               path="/admin"
               isAuthenticated={isAuthenticated}
+              isAdmin={isAdmin}
               component={AdminPage}
+            />
+            <PrivateRoute
+              exact
+              path="/concert/create"
+              isAuthenticated={isAuthenticated}
+              isAdmin={isAdmin}
+              component={CreateConcertPage}
             />
           </Switch>
         </HashRouter>

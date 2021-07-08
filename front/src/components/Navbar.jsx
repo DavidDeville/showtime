@@ -8,12 +8,15 @@ const Navbar = () => {
 
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
 
+  const { isAdmin, setIsAdmin } = useContext(AuthContext);
+  
   const handleLogout = () => {
-    api.logout();
+    setIsAdmin(false);
     setIsAuthenticated(false);
+    api.logout();
     history.push("/login");
   };
-
+  
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -43,6 +46,11 @@ const Navbar = () => {
                 Groupes
               </NavLink>
             </li>
+            {isAdmin ? <li className="nav-item active">
+              <NavLink className="nav-link" to="/concert/create">
+                Création
+              </NavLink>
+            </li> : <></>}
           </ul>
         </div>
         {!isAuthenticated ? (

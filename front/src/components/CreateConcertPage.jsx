@@ -1,13 +1,13 @@
 import React, { useContext, useState } from "react";
-import Field from '../components/forms/Field';
+import Field from './forms/Field';
 import AuthContext from "../contexts/AuthContext";
 import api from "../services/authAPI";
 
-const LoginPage = ({history}) => {
-  const [credentials, setCredentials] = useState({
-    email: "",
-    password: "",
-    role: ""
+const CreateConcertPage = ({history}) => {
+  const [concert, setConcert] = useState({
+    name: "",
+    date: "",
+    place: ""
   });
 
   const [error, setError] = useState("");
@@ -17,9 +17,7 @@ const LoginPage = ({history}) => {
 
   const {isAdmin, setIsAdmin } = useContext(AuthContext);
 
-  if(isAuthenticated) {
-    history.replace('/concerts');
-  }
+  
 
   /**
    * Handle the API call to authenticate the user
@@ -31,23 +29,13 @@ const LoginPage = ({history}) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(concert);
     setError(false);
     try {
-      const token = await api.post("auth/login", credentials)
-      .then((res) => res.data.access_token);
+      const concertCreation = await api.post("concerts", concert)
+      .then((res) => console.log(res));
       
-      console.log(token);
       setError('');
-      setIsAuthenticated(true);
-      window.localStorage.setItem('access_token', token);
-      api.setToken(token);
-
-      let checkAdmin = api.isAdmin();
-      if(checkAdmin)
-      {
-        setIsAdmin(true);
-      }
-      history.replace('/concerts');
 
     } catch (error) {
       console.log(error);
@@ -61,7 +49,8 @@ const LoginPage = ({history}) => {
    */
   const handleChange = ({ currentTarget }) => {
     const { value, name } = currentTarget;
-    setCredentials({ ...credentials, [name]: value });
+    setConcert({ ...concert, [name]: value });
+    console.log(concert);
   };
 
   return (
@@ -69,23 +58,31 @@ const LoginPage = ({history}) => {
       <div className="container pt-3">
         <form>
           <fieldset>
-            <legend>Connexion</legend>
+            <legend>Création d'un concert</legend>
             <Field
-              name="email"
-              label="Adresse email"
-              value={credentials.email}
+              name="name"
+              label="Nom du concert"
+              value={concert.name}
               onChange={handleChange}
-              placeholder="Entrez votre adresse mail..."
+              placeholder="Entrez le nom du concert..."
               type="email"
               error={error}
             />
             <Field
-              name="password"
-              label="Mot de passe"
-              value={credentials.password}
+              name="date"
+              label="Date du concert"
+              value={concert.date}
               onChange={handleChange}
-              placeholder="Entrez votre mot de passe..."
-              type="password"
+              placeholder="Entrez la date du concert..."
+              type="date"
+            />
+            <Field
+              name="place"
+              label="Lieu du concert"
+              value={concert.place}
+              onChange={handleChange}
+              placeholder="Entrez le lieu du concert..."
+              type="email"
             />
             {error ? <p className="text-error">{errorMessage}</p> : <></>}
             <button
@@ -93,7 +90,7 @@ const LoginPage = ({history}) => {
               className="btn btn-primary"
               onClick={handleSubmit}
             >
-              Se connecter
+              Créer le concert
             </button>
           </fieldset>
         </form>
@@ -102,4 +99,4 @@ const LoginPage = ({history}) => {
   );
 };
 
-export default LoginPage;
+export default CreateConcertPage;

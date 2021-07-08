@@ -5,5 +5,7 @@ import React from 'react';
  */
 export default React.createContext({
     isAuthenticated: false,
-    setIsAuthenticated: (value) => {}
+    setIsAuthenticated: (value) => {},
+    isAdmin: false,
+    setIsAdmin: (value) => {}
 });
