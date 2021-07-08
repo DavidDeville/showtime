@@ -1,0 +1,1 @@
+export const MONGO_CONNECTION = 'mongodb+srv://nestuser:nestuser@cluster0.of53r.mongodb.net/showtime?retryWrites=true&w=majority';
