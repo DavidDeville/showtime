@@ -20,13 +20,21 @@ export class UserRepository {
         return await this.userModel.find();
     }
 
-    async findOne(email: string): Promise<User>
-    {
-        return await this.userModel.findOne({email: email});
+    async findOne(id: string): Promise<User> {
+        return await this.userModel.findOne({ _id: id })
     }
 
-    async findByIdAndUpdate(id: string, userUpdateDto: UserUpdateDto): Promise<User> {
+    /*async findByIdAndUpdate(id: string, userUpdateDto: UserUpdateDto): Promise<User> {
         return await this.userModel.findByIdAndUpdate({id, userUpdateDto}).exec();
+    }*/
+
+    async update(user: UserUpdateDto): Promise<User> {
+
+        return await this.userModel.findOneAndUpdate({ _id: user.id },
+            { email: user.email, password: user.password, role: user.role }, {
+            new: true
+        })
+
     }
 
     async findByIdAndDelete(id: string): Promise<User> {

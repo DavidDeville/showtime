@@ -29,7 +29,7 @@ export class ConcertRepository
     async update(concert: ConcertUpdateDto): Promise<Concert> {
 
         return await this.concertModel.findOneAndUpdate({ _id: concert.id },
-            { name: concert.name }, {
+            { name: concert.name, date: concert.date, place: concert.place }, {
             new: true
         })
 

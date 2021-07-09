@@ -6,38 +6,34 @@ import { User } from './user.schema';
 
 @Injectable()
 export class UsersService {
-
   constructor(private userRepository: UserRepository) {}
 
-  async create(userCreateDto: UserCreateDto): Promise<User>
-  {
+  async create(userCreateDto: UserCreateDto): Promise<User> {
     return await this.userRepository.create(userCreateDto);
   }
 
-  async getAll(): Promise<User[]> 
-  {
+  async getAll(): Promise<User[]> {
     return await this.userRepository.findAll();
   }
 
-  getUserById(id: string): Promise<User> 
-  {
-    let user = this.userRepository.findOne(id)
+  getUserById(id: string): Promise<User> {
+    let user = this.userRepository.findOne(id);
     if (!user) {
-        throw new NotFoundException('Pas trouve')
+      throw new NotFoundException(`${id} not found`);
     }
-    return user
+    return user;
   }
 
   async findOne(email: string): Promise<User> {
     return await this.userRepository.findOne(email);
   }
 
-  async update(id: string, userUpdateDto: UserUpdateDto): Promise<User> {
-    return await this.userRepository.findByIdAndUpdate(id, userUpdateDto);
-  }
+  updateEmployee(userUpdateDto: UserUpdateDto): Promise<User> {
+
+    return this.userRepository.update(userUpdateDto);
+}
 
   async delete(id: string): Promise<User> {
     return await this.userRepository.findByIdAndDelete(id);
   }
-
 }

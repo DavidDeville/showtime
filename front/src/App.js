@@ -12,6 +12,8 @@ import AdminPage from "./components/AdminPage";
 import CreateConcertPage from "./components/CreateConcertPage";
 import UpdateConcertPage from "./components/UpdateConcertPage";
 import RegisterPage from './components/RegisterPage';
+import UsersPage from './components/UsersPage';
+import UpdateUserPage from './components/UpdateUserPage';
 
 api.setup();
 
@@ -49,6 +51,20 @@ const App = () => {
               path="/concerts"
               render={(props) => (
                 <ConcertsPage isAuthenticated={isAuthenticated} {...props} />
+              )}
+            />
+            <Route
+              exact
+              path="/users/:id"
+              render={(props) => (
+                <UpdateUserPage isAuthenticated={isAuthenticated} {...props} />
+              )}
+            />
+            <Route
+              exact
+              path="/users"
+              render={(props) => (
+                <UsersPage isAuthenticated={isAuthenticated} {...props} />
               )}
             />
             <PrivateRoute

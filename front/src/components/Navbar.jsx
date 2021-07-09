@@ -51,6 +51,11 @@ const Navbar = () => {
                 Création
               </NavLink>
             </li> : <></>}
+            {isAdmin ? <li className="nav-item active">
+              <NavLink className="nav-link" to="/users">
+                Utilisateurs
+              </NavLink>
+            </li> : <></>}
           </ul>
         </div>
         {!isAuthenticated ? (
