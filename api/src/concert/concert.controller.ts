@@ -34,7 +34,6 @@ export class ConcertController {
 
     @Delete('/:id')
     async deleteEmployee(@Param('id') id: string) {
-        //console.log(id);
         let y = await this.concertService.delete(id);
         if (!y) {
             throw new NotFoundException('Record not found to delete')

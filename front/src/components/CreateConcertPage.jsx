@@ -29,7 +29,6 @@ const CreateConcertPage = ({history}) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(concert);
     setError(false);
     try {
       const concertCreation = await api.post("concerts", concert)
@@ -50,7 +49,6 @@ const CreateConcertPage = ({history}) => {
   const handleChange = ({ currentTarget }) => {
     const { value, name } = currentTarget;
     setConcert({ ...concert, [name]: value });
-    console.log(concert);
   };
 
   return (

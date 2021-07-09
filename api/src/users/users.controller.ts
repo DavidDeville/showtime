@@ -19,12 +19,11 @@ export class UsersController {
 
   @Get()
   getAllUser() {
-    console.log(this);
     return this.usersService.getAll();
   }
 
   @Get('/:id')
-  getUserById(@Param('id') id: string): Promise<User> {
+  getEmployeeById(@Param('id') id: string): Promise<User> {
     return this.usersService.getUserById(id);
   }
 
@@ -33,11 +32,11 @@ export class UsersController {
     return this.usersService.create(userCreateDto);
   }
 
-  @Put('/:id')
-  updateUser(@Param('id') id: string, @Body() userUpdateDto: UserUpdateDto): Promise<User> {
-      userUpdateDto.id = id
-      return this.usersService.updateEmployee(userUpdateDto)
-  }
+  @Put(':id')
+  updateEmployee(@Param('id') id: string, @Body() userUpdateDto: UserUpdateDto): Promise<User> {
+    userUpdateDto.id = id
+    return this.usersService.updateUser(userUpdateDto);
+}
 
   @Delete(':id')
   async delete(@Param('id') id: string) {

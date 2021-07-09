@@ -36,7 +36,6 @@ const LoginPage = ({history}) => {
       const token = await api.post("auth/login", credentials)
       .then((res) => res.data.access_token);
       
-      console.log(token);
       setError('');
       setIsAuthenticated(true);
       window.localStorage.setItem('access_token', token);

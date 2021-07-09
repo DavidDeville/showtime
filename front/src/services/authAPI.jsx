@@ -6,7 +6,7 @@ import jwtDecode from 'jwt-decode';
  * date still valid (on application boot)
  */
  const setup = () => {
-    const token = window.localStorage.getItem('fitly-token');
+    const token = window.localStorage.getItem('access_token');
 
     if(token) {
         const {exp: expiration} = jwtDecode(token);

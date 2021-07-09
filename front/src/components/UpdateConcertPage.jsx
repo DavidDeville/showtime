@@ -26,7 +26,7 @@ const UpdateConcertPage = (props) => {
    * @param {int} id - the concert id
    */
   const fetchConcert = async (id) => {
-    //console.log(id);
+
     const data = await api.get("concerts/" + id);
     const { name, date, place } = data.data;
     setConcert({ name, date, place });
@@ -41,15 +41,14 @@ const UpdateConcertPage = (props) => {
    */
 
   const handleSubmit = async (event) => {
-    console.log(concert);
     event.preventDefault();
-    console.log(concert);
     setError(false);
+
     try {
       const concertUpdate = await api
         .put("concerts", id, concert)
         .then((res) => console.log(res));
-      console.log(concertUpdate);
+
       setError("");
     } catch (error) {
       console.log(error);
@@ -64,7 +63,6 @@ const UpdateConcertPage = (props) => {
   const handleChange = ({ currentTarget }) => {
     const { value, name } = currentTarget;
     setConcert({ ...concert, [name]: value });
-    console.log(concert);
   };
 
   useEffect(() => {

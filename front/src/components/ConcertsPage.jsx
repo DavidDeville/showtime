@@ -31,7 +31,7 @@ const ConcertsPage = () => {
   const handleDelete = async (id) => {
     const originalConcerts = [...concerts];
     setConcerts(concerts.filter((concert) => concert._id !== id));
-    console.log(id);
+
     try {
       const data = await api.deleter("concerts/" +id)
     } catch (error) {
@@ -51,7 +51,7 @@ const ConcertsPage = () => {
    * Gets all concerts on page loading
    */
   useEffect(() => {
-    console.log(concerts);
+    
   }, [concerts]);
 
   return (

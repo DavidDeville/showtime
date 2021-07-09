@@ -20,8 +20,16 @@ export class UserRepository {
         return await this.userModel.find();
     }
 
-    async findOne(id: string): Promise<User> {
-        return await this.userModel.findOne({ _id: id })
+    async findOne(email: string): Promise<User>
+    {
+        if(email.indexOf("@") === -1)
+        {
+            return await this.userModel.findOne({ _id: email });
+        }
+        else {
+            
+            return await this.userModel.findOne({email: email});
+        }
     }
 
     /*async findByIdAndUpdate(id: string, userUpdateDto: UserUpdateDto): Promise<User> {
@@ -41,4 +49,4 @@ export class UserRepository {
         return await this.userModel.findByIdAndDelete(id).exec();
     }
 
-}
+} 
