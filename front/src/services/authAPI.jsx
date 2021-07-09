@@ -44,6 +44,20 @@ import jwtDecode from 'jwt-decode';
 }
 
 /**
+ * Update a ressource based on its id
+ * 
+ * @param {string} path - the API URL 
+ * @param {*} id - the id of the element to delete
+ */
+ const put = (path, id, data) => {
+    const baseApiUrl = 'http://localhost:3001';
+
+    return axios.put(`${baseApiUrl}/${path}/${id}`,
+        data
+    );
+}
+
+/**
  * Deletes a ressource based on its id
  * 
  * @param {string} path - the API URL 
@@ -112,6 +126,7 @@ import jwtDecode from 'jwt-decode';
 const api = {
     get,
     post,
+    put,
     deleter,
     setToken,
     isAuthenticated,
