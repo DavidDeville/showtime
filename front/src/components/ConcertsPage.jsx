@@ -2,9 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import AuthContext from "../contexts/AuthContext";
 import api from "../services/authAPI";
 import "../style/style.css";
+import { useHistory } from 'react-router-dom';
 
 const ConcertsPage = () => {
   const [concerts, setConcerts] = useState([]);
+
+  const history = useHistory();
 
   const {isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
 
@@ -72,6 +75,7 @@ const ConcertsPage = () => {
                     {isAdmin ? 
                     <div>
                       <button type="button" class="btn btn-outline-danger" onClick={() => handleDelete(concert._id)}>Delete</button>
+                      <button type="button" class="btn btn-outline-success" onClick={() => history.push('concert/' + concert._id)}>Edit</button>
                     </div> : <></>}
                     
                   </p>
