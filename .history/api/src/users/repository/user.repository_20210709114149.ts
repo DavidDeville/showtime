@@ -2,7 +2,6 @@ import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { UserCreateDto } from "../dto/UserCreate.dto";
-import { UserUpdateDto } from "../dto/UserUpdate.dto";
 import { User, UserDocument } from "../user.schema";
 
 
@@ -24,13 +23,4 @@ export class UserRepository {
     {
         return await this.userModel.findOne({email: email});
     }
-
-    async findByIdAndUpdate(id: string, userUpdateDto: UserUpdateDto): Promise<User> {
-        return await this.userModel.findByIdAndUpdate({id, userUpdateDto}).exec();
-    }
-
-    async findByIdAndDelete(id: string): Promise<User> {
-        return await this.userModel.findByIdAndDelete(id).exec();
-    }
-
 }

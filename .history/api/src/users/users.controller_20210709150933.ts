@@ -35,6 +35,10 @@ export class UsersController {
 
         @Delete(':id')
         async delete(@Param('id') id: string) {
+        if (this.user.role === 'admin') {
         return await this.usersService.delete(id);
+        } else {
+            throw new NotAcceptableException('Non Authorisé')
+        }
     }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, Delete, NotAcceptableException} from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, } from '@nestjs/common';
 import { UserCreateDto } from './dto/UserCreate.dto';
 import { UserUpdateDto } from './dto/UserUpdate.dto';
 import { User } from './user.schema';
@@ -9,12 +9,11 @@ export class UsersController {
 
     constructor(private readonly usersService: UsersService) {}
 
-    @Get()
+    /*@Get()
     getAllUser()
     {
-        console.log(this)
-        return this.usersService.getAll();
-    }
+        return this.usersService.getAllUsers();
+    }*/
 
     @Get('/:id')
     getEmployeeById(@Param('id') id: string): Promise<User> {
@@ -31,10 +30,5 @@ export class UsersController {
     @Put(':id')
     async update(@Param('id') id: string, @Body() userUpdateDto: UserUpdateDto) {
       return await this.usersService.update(id, userUpdateDto);
-    }
-
-        @Delete(':id')
-        async delete(@Param('id') id: string) {
-        return await this.usersService.delete(id);
     }
 }

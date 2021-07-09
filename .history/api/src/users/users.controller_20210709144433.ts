@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, Delete, NotAcceptableException} from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Delete} from '@nestjs/common';
 import { UserCreateDto } from './dto/UserCreate.dto';
 import { UserUpdateDto } from './dto/UserUpdate.dto';
 import { User } from './user.schema';
@@ -12,7 +12,6 @@ export class UsersController {
     @Get()
     getAllUser()
     {
-        console.log(this)
         return this.usersService.getAll();
     }
 
@@ -34,7 +33,9 @@ export class UsersController {
     }
 
         @Delete(':id')
-        async delete(@Param('id') id: string) {
+async delete(@Param('id') id: string) {
+        if (this.usersService.getUserById === 'admin') {
         return await this.usersService.delete(id);
+        }
     }
 }

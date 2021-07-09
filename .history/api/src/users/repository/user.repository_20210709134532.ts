@@ -25,12 +25,8 @@ export class UserRepository {
         return await this.userModel.findOne({email: email});
     }
 
-    async findByIdAndUpdate(id: string, userUpdateDto: UserUpdateDto): Promise<User> {
-        return await this.userModel.findByIdAndUpdate({id, userUpdateDto}).exec();
-    }
-
-    async findByIdAndDelete(id: string): Promise<User> {
-        return await this.userModel.findByIdAndDelete(id).exec();
+    async findByIdAndUpdate(id: string, userUpdateDto: UserUpdateDto) {
+        return await (await this.userModel.findByIdAndUpdate(id)).exec();
     }
 
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, Delete, NotAcceptableException} from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Delete } from '@nestjs/common';
 import { UserCreateDto } from './dto/UserCreate.dto';
 import { UserUpdateDto } from './dto/UserUpdate.dto';
 import { User } from './user.schema';
@@ -7,12 +7,10 @@ import { UsersService } from './users.service';
 @Controller('users')
 export class UsersController {
 
-    constructor(private readonly usersService: UsersService) {}
+    constructor(private readonly usersService: UsersService) { }
 
     @Get()
-    getAllUser()
-    {
-        console.log(this)
+    getAllUser() {
         return this.usersService.getAll();
     }
 
@@ -23,18 +21,19 @@ export class UsersController {
     }
 
     @Post()
-    createUser(@Body() userCreateDto: UserCreateDto) : Promise<User>
-    {
+    createUser(@Body() userCreateDto: UserCreateDto): Promise<User> {
         return this.usersService.create(userCreateDto);
     }
 
     @Put(':id')
     async update(@Param('id') id: string, @Body() userUpdateDto: UserUpdateDto) {
-      return await this.usersService.update(id, userUpdateDto);
+        return await this.usersService.update(id, userUpdateDto);
     }
 
-        @Delete(':id')
-        async delete(@Param('id') id: string) {
+    if(this.users.role === 'admin') {
+    @Delete(':id')
+    async delete (@Param('id') id: string) {
         return await this.usersService.delete(id);
     }
+}
 }

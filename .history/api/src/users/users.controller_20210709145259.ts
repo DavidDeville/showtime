@@ -7,12 +7,14 @@ import { UsersService } from './users.service';
 @Controller('users')
 export class UsersController {
 
+
+    user : User
     constructor(private readonly usersService: UsersService) {}
 
     @Get()
     getAllUser()
     {
-        console.log(this)
+        console.log(this.user)
         return this.usersService.getAll();
     }
 
@@ -35,6 +37,10 @@ export class UsersController {
 
         @Delete(':id')
         async delete(@Param('id') id: string) {
+        if (this.user.role === 'admin') {
         return await this.usersService.delete(id);
+        } else {
+            throw new NotAcceptableException('Non Authorisé')
+        }
     }
 }

@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { UserCreateDto } from './dto/UserCreate.dto';
-import { UserUpdateDto } from './dto/UserUpdate.dto';
 import { UserRepository } from './repository/user.repository';
 import { User } from './user.schema';
 
@@ -32,12 +31,7 @@ export class UsersService {
     return await this.userRepository.findOne(email);
   }
 
-  async update(id: string, userUpdateDto: UserUpdateDto): Promise<User> {
-    return await this.userRepository.findByIdAndUpdate(id, userUpdateDto);
+  async update(id: string, updateTodoDto: UpdateUserDto): Promise<User> {
+    return await this.model.findByIdAndUpdate(id, updateTodoDto).exec();
   }
-
-  async delete(id: string): Promise<User> {
-    return await this.userRepository.findByIdAndDelete(id);
-  }
-
 }

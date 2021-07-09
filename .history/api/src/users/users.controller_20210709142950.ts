@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, Delete, NotAcceptableException} from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Delete} from '@nestjs/common';
 import { UserCreateDto } from './dto/UserCreate.dto';
 import { UserUpdateDto } from './dto/UserUpdate.dto';
 import { User } from './user.schema';
@@ -12,8 +12,7 @@ export class UsersController {
     @Get()
     getAllUser()
     {
-        console.log(this)
-        return this.usersService.getAll();
+        return this.usersService.getAllUsers();
     }
 
     @Get('/:id')
@@ -33,8 +32,8 @@ export class UsersController {
       return await this.usersService.update(id, userUpdateDto);
     }
 
-        @Delete(':id')
-        async delete(@Param('id') id: string) {
-        return await this.usersService.delete(id);
+    @Delete(':id')
+    async delete(@Param('id') id: string) {
+      return await this.usersService.delete(id);
     }
 }

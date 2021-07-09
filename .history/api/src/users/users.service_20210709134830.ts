@@ -32,12 +32,7 @@ export class UsersService {
     return await this.userRepository.findOne(email);
   }
 
-  async update(id: string, userUpdateDto: UserUpdateDto): Promise<User> {
-    return await this.userRepository.findByIdAndUpdate(id, userUpdateDto);
+  async findByIdAndUpdate(id: string, userUpdateDto: UserUpdateDto) {
+    return await this.userModel.findByIdAndUpdate(id, userUpdateDto).exec();
   }
-
-  async delete(id: string): Promise<User> {
-    return await this.userRepository.findByIdAndDelete(id);
-  }
-
 }
