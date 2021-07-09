@@ -11,6 +11,7 @@ import { useState } from "react";
 import AdminPage from "./components/AdminPage";
 import CreateConcertPage from "./components/CreateConcertPage";
 import UpdateConcertPage from "./components/UpdateConcertPage";
+import RegisterPage from './components/RegisterPage';
 
 api.setup();
 
@@ -41,6 +42,7 @@ const App = () => {
         <HashRouter>
           <Navbar />
           <Switch>
+            <Route exact path="/register" component={RegisterPage} />
             <Route exact path="/login" component={LoginPage} />
             <Route
               exact

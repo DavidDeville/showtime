@@ -65,10 +65,12 @@ const Navbar = () => {
               </li>
             </ul>
             <ul className="navbar-nav">
-              <li className="nav-item active">
-                <button type="button" className="btn btn-outline-danger">
-                  Register
-                </button>
+            <li className="nav-item active">
+                <NavLink to="/register">
+                  <button type="button" className="btn btn-outline-danger">
+                    Register
+                  </button>
+                </NavLink>
               </li>
             </ul>
           </>
